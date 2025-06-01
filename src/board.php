@@ -2,9 +2,10 @@
 include 'db.php';
 include 'session.php';
 
-$sql = "SELECT posts.id, title, username, posts.created_at 
-        FROM posts JOIN users ON posts.user_id = users.id 
-        ORDER BY posts.id DESC";
+$sql = "SELECT posts.id, posts.title, users.username, posts.created_at 
+        FROM posts 
+        JOIN users ON posts.user_id = users.id 
+        ORDER BY posts.created_at DESC";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -33,3 +34,7 @@ $result = mysqli_query($conn, $sql);
     </p>
     <hr>
 <?php endwhile; ?>
+
+<?php if (isset($_SESSION['user_id'])): ?>
+    <p><a href="create.php">글쓰기</a></p>
+<?php endif; ?>
